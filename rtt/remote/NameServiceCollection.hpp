@@ -1,7 +1,7 @@
 /***************************************************************************
   tag: Bernd Langpap  Wed Jan 18 14:09:48 CET 2006  INamingService.hpp
 
-                        INameService.hpp -  description
+                        NameServiceCollection.hpp -  description
                            -------------------
     begin                : Mon March 17 2015
     copyright            : (C) 2015 Bernd Langpap
@@ -34,33 +34,43 @@
  *   Suite 330, Boston, MA  02111-1307  USA                                *
  *                                                                         *
  ***************************************************************************/
-#ifndef REMOTE_INAMINGSERVICE_HPP
-#define REMOTE_INAMINGSERVICE_HPP
+#ifndef REMOTE_NAMESERVICECOLLECTION_HPP
+#define REMOTE_NAMESERVICECOLLECTION_HPP
 
-#include <string>
+#include "INameService.hpp"
+#include <vector>
+#include <boost/ptr_container/ptr_vector.hpp>
 
 namespace RTT
 {namespace Communication
 {
     /**
-      * @brief This class is an abstract representation of a name service.
+      * @brief This class realizes the Corba Name Service by implementing the general name service interface.
       * 
       */
-    class INameService
+    class NameServiceCollection
     {
+    private:
+      typedef boost::ptr_vector<INameService> NameServiceCollectionType;
+      NameServiceCollectionType m_NameServiceCollection;
+      
     public:
+      // Typedefs
+      typedef NameServiceCollectionType::iterator  NameServiceIterator; ///< Iterator to go through the different name service elements
+      typedef NameServiceCollectionType::size_type NameServiceCollectionSizeType; ///< Size type of the name service collection
+      
       // Ctor / Dtor
-      INameService() {};
-      virtual ~INameService() {};
-      INameService(const INameService&) = delete; // Needs to be checked, whether C++11 is supported or not!!!
-      INameService& operator=(const INameService&) = delete;
-
-      // General Name Service methods
-      virtual std::string getCanonicalName() = 0;
-      virtual std::string getURI() = 0;
+      NameServiceCollection();
+      ~NameServiceCollection(); 
+      
+      // Methods for handling the name service collection
+      void add(INameService* pNameService);
+      NameServiceIterator begin();
+      NameServiceIterator end();
+      NameServiceCollectionSizeType getSize();
     };
 
 }
 }
 
-#endif // REMOTE_INAMINGSERVICE_HPP
+#endif // REMOTE_NAMESERVICECOLLECTION_HPP

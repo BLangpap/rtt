@@ -1,7 +1,7 @@
 /***************************************************************************
   tag: Bernd Langpap  Wed Jan 18 14:09:48 CET 2006  INamingService.hpp
 
-                        INameService.hpp -  description
+                        ITaskContextServer.hpp -  description
                            -------------------
     begin                : Mon March 17 2015
     copyright            : (C) 2015 Bernd Langpap
@@ -34,33 +34,41 @@
  *   Suite 330, Boston, MA  02111-1307  USA                                *
  *                                                                         *
  ***************************************************************************/
-#ifndef REMOTE_INAMINGSERVICE_HPP
-#define REMOTE_INAMINGSERVICE_HPP
+#ifndef REMOTE_ITASKCONTEXTSERVER_HPP
+#define REMOTE_ITASKCONTEXTSERVER_HPP
 
 #include <string>
+#include <TaskContext.hpp>
+#include "NameServiceCollection.hpp"
 
 namespace RTT
 {namespace Communication
 {
     /**
-      * @brief This class is an abstract representation of a name service.
+      * @brief This class is an abstract representation of a task context server.
       * 
       */
-    class INameService
+    class ITaskContextServer
     {
     public:
       // Ctor / Dtor
-      INameService() {};
-      virtual ~INameService() {};
-      INameService(const INameService&) = delete; // Needs to be checked, whether C++11 is supported or not!!!
-      INameService& operator=(const INameService&) = delete;
+      ITaskContextServer() {};
+      virtual ~ITaskContextServer() {};
+      //ITaskContextServer(const ITaskContextServer&) = delete; // Needs to be checked, whether C++11 is supported or not!!!
+      //ITaskContextServer& operator=(const ITaskContextServer&) = delete;
 
       // General Name Service methods
-      virtual std::string getCanonicalName() = 0;
-      virtual std::string getURI() = 0;
+      virtual bool Initialize(TaskContext* pTaskContext, NameServiceCollection* pNameServiceCollection) = 0;
+      virtual bool Start(bool StartThreaded = false) = 0;
+      virtual bool Stop() = 0;
+      virtual bool Delete(TaskContext* pTaskContext) = 0;
+      virtual bool DeleteAll() = 0;
     };
+    
+    // Type Definition of a smart pointer to a task context server
+    typedef boost::shared_ptr<ITaskContextServer> TaskContextServerType;
 
 }
 }
 
-#endif // REMOTE_INAMINGSERVICE_HPP
+#endif // REMOTE_ITASKCONTEXTSERVER_HPP

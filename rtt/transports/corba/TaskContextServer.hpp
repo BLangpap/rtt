@@ -66,7 +66,7 @@ namespace RTT
         : public ApplicationServer
     {
     protected:
-        friend class OrbRunner;
+        //friend class OrbRunner;
         friend class TaskContextProxy;
 
         typedef std::map<TaskContext*, TaskContextServer*> ServerMap;
