@@ -39,7 +39,6 @@
 
 #include <string>
 #include <TaskContext.hpp>
-#include "NameServiceCollection.hpp"
 
 namespace RTT
 {namespace Communication
@@ -58,7 +57,7 @@ namespace RTT
       //ITaskContextServer& operator=(const ITaskContextServer&) = delete;
 
       // General Name Service methods
-      virtual bool Initialize(TaskContext* pTaskContext, NameServiceCollection* pNameServiceCollection) = 0;
+      virtual bool AttachTo(TaskContext* pTaskContext) = 0;
       virtual bool Start(bool StartThreaded = false) = 0;
       virtual bool Stop() = 0;
       virtual bool Delete(TaskContext* pTaskContext) = 0;
@@ -67,7 +66,6 @@ namespace RTT
     
     // Type Definition of a smart pointer to a task context server
     typedef boost::shared_ptr<ITaskContextServer> TaskContextServerType;
-
 }
 }
 

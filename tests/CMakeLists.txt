@@ -139,6 +139,19 @@ IF (BUILD_TESTING)
     ENDIF()
 
     IF(ENABLE_CORBA)
+	ADD_EXECUTABLE( comm-test CommunicationTest.cpp )
+	TARGET_LINK_LIBRARIES( comm-test 
+		orocos-rtt-${OROCOS_TARGET}_dynamic 
+		orocos-rtt-corba-${OROCOS_TARGET}_dynamic 
+		${CORBA_LIBRARIES} ${TEST_LIBRARIES})
+	SET_TARGET_PROPERTIES( comm-test PROPERTIES
+		COMPILE_FLAGS "${CMAKE_CXX_FLAGS_ADD}"
+		LINK_FLAGS "${CMAKE_LD_FLAGS_ADD}"
+		COMPILE_DEFINITIONS "${COMPILE_DEFS}"
+		)
+	ADD_TEST( comm-test ${RUNTIME_OUTPUT_DIRECTORY}/comm-test )
+	list(APPEND ORO_EXTRA_TESTS "comm-test")
+
       ADD_EXECUTABLE( corba-test test-runner-corba.cpp corba_test.cpp )
       TARGET_LINK_LIBRARIES( corba-test 
             orocos-rtt-${OROCOS_TARGET}_dynamic 

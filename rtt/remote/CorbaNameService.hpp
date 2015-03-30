@@ -55,8 +55,8 @@ namespace RTT
 	~CorbaNameService();
       
 	// Implementation of the Name Service interface
-	std::string getCanonicalName() override;
-	std::string getURI() override;
+	virtual std::string getURI(std::string Name); // override;
+	virtual bool RegisterTaskContextServer(std::string Name, TaskContextServerCollection& tcsCollection); // override;
     };
 
 }

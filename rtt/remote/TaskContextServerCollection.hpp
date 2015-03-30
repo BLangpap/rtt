@@ -1,7 +1,7 @@
 /***************************************************************************
   tag: Bernd Langpap  Wed Jan 18 14:09:48 CET 2006  INamingService.hpp
 
-                        NameServiceCollection.hpp -  description
+                        TaskContextServerCollection.hpp -  description
                            -------------------
     begin                : Mon March 17 2015
     copyright            : (C) 2015 Bernd Langpap
@@ -34,43 +34,44 @@
  *   Suite 330, Boston, MA  02111-1307  USA                                *
  *                                                                         *
  ***************************************************************************/
-#ifndef REMOTE_NAMESERVICECOLLECTION_HPP
-#define REMOTE_NAMESERVICECOLLECTION_HPP
+#ifndef REMOTE_TASKCONTEXTSERVERCOLLECTION_HPP
+#define REMOTE_TASKCONTEXTSERVERCOLLECTION_HPP
 
-#include "INameService.hpp"
 #include <vector>
-#include <boost/ptr_container/ptr_vector.hpp>
+#include "ITaskContextServer.hpp"
+//#include <boost/ptr_container/ptr_vector.hpp>
 
 namespace RTT
 {namespace Communication
 {
     /**
-      * @brief This class realizes the Corba Name Service by implementing the general name service interface.
+      * @brief This class realizes the ability to build a collection of different task context server.
       * 
       */
-    class NameServiceCollection
+    class TaskContextServerCollection
     {
     private:
-      typedef boost::ptr_vector<INameService> NameServiceCollectionType;
-      NameServiceCollectionType m_NameServiceCollection;
+      typedef std::vector<TaskContextServerType> TaskContextServerCollectionType;
+      TaskContextServerCollectionType m_TaskContextServerCollection;
+      
       
     public:
       // Typedefs
-      typedef NameServiceCollectionType::iterator  NameServiceIterator; ///< Iterator to go through the different name service elements
-      typedef NameServiceCollectionType::size_type NameServiceCollectionSizeType; ///< Size type of the name service collection
+      typedef TaskContextServerCollectionType::iterator  TaskContextServerIterator; ///< Iterator to go through the different name service elements
+      typedef TaskContextServerCollectionType::size_type TaskContextServerCollectionSizeType; ///< Size type of the name service collection
       
       // Ctor / Dtor
-      NameServiceCollection();
-      ~NameServiceCollection(); 
+      TaskContextServerCollection();
+      ~TaskContextServerCollection(); 
       
       // Methods for handling the name service collection
-      void add(INameService* pNameService);
-      NameServiceIterator begin();
-      NameServiceIterator end();
-      NameServiceCollectionSizeType getSize();
+      void add(TaskContextServerType& pTaskContextServer);
+      TaskContextServerIterator begin();
+      TaskContextServerIterator end();
+      TaskContextServerCollectionSizeType getSize();
     };
 
 }
 }
 
-#endif // REMOTE_NAMESERVICECOLLECTION_HPP
+#endif // REMOTE_TASKCONTEXTSERVERCOLLECTION_HPP

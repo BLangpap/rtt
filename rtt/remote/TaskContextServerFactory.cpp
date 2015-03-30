@@ -3,23 +3,20 @@
 
 using namespace RTT::Communication;
 
+
+boost::atomic<TaskContextServerFactory*> TaskContextServerFactory::m_Instance(0);
+
 /**
  * @brief Default contructor for the task context server factory
  * 
  */
-TaskContextServerFactory::TaskContextServerFactory()
-{
-
-}
+TaskContextServerFactory::TaskContextServerFactory() {}
 
 /**
  * @brief Default destructor for the task context server factory.
  * 
  */
-TaskContextServerFactory::~TaskContextServerFactory()
-{
-
-}
+TaskContextServerFactory::~TaskContextServerFactory() {}
 
 /**
  * @brief Creates a task context server object based upon the desired implementation option.
@@ -34,7 +31,7 @@ TaskContextServerType TaskContextServerFactory::createTaskContextServer(TaskCont
   // Return a task context server object depending on the task context server implementation type
   switch (eTaskContextServerImpl)
   {
-  case CORBA:
+  case TCS_CORBA:
     pTaskContextServer.reset(new CorbaTaskContextServer());
     break;
   default:

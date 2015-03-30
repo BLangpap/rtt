@@ -44,7 +44,7 @@ namespace RTT
 {namespace Communication
 {
     /**
-      * @brief This class realizes the Corba Name Service by implementing the general name service interface.
+      * @brief This class realizes the Task Context Server for Corba by implementing the task context server interface.
       * 
       */
     class CorbaTaskContextServer : public ITaskContextServer
@@ -55,11 +55,11 @@ namespace RTT
 	~CorbaTaskContextServer();
       
 	// Implementation of the Name Service interface
-	bool Initialize(TaskContext* pTaskContext, NameServiceCollection* pNameServiceCollection) override;
-	bool Start(bool StartThreaded = false) override;
-	bool Stop() override;
-	bool Delete(TaskContext* pTaskContext) override;
-	bool DeleteAll() override;
+	bool AttachTo(TaskContext* pTaskContext); // override;
+	bool Start(bool StartThreaded = false); // override;
+	bool Stop(); // override;
+	bool Delete(TaskContext* pTaskContext); // override;
+	bool DeleteAll(); // override;
     };
 
 }

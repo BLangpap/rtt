@@ -20,10 +20,9 @@ CorbaTaskContextServer::~CorbaTaskContextServer()
  * @brief Registers the given taskcontext at the given name services.
  * 
  * @param pTaskContext Reference to the task context.
- * @param pNameServiceCollection Reference to the collection of name services, where the task context shall be registered.
  * @return bool
  */
-bool CorbaTaskContextServer::Initialize(RTT::TaskContext* pTaskContext, NameServiceCollection* pNameServiceCollection)
+bool CorbaTaskContextServer::AttachTo(RTT::TaskContext* pTaskContext)
 {
   return true;
 }
@@ -66,5 +65,5 @@ bool CorbaTaskContextServer::Delete(RTT::TaskContext* pTaskContext)
  */
 bool CorbaTaskContextServer::DeleteAll()
 {
-
+  return true;
 }

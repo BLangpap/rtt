@@ -1,7 +1,7 @@
 /***************************************************************************
   tag: Bernd Langpap  Wed Jan 18 14:09:48 CET 2006  INamingService.hpp
 
-                        INameService.hpp -  description
+                        NameServiceFactoy.hpp -  description
                            -------------------
     begin                : Mon March 17 2015
     copyright            : (C) 2015 Bernd Langpap
@@ -34,36 +34,53 @@
  *   Suite 330, Boston, MA  02111-1307  USA                                *
  *                                                                         *
  ***************************************************************************/
-#ifndef REMOTE_INAMINGSERVICE_HPP
-#define REMOTE_INAMINGSERVICE_HPP
+#ifndef REMOTE_NAMESERVICEFACTORY_HPP
+#define REMOTE_NAMESERVICEFACTORY_HPP
 
-#include <string>
+#include <boost/shared_ptr.hpp>
+#include <boost/atomic.hpp>
+#include <boost/thread/mutex.hpp>
 #include "RemoteDefinitions.h"
-#include <TaskContext.hpp>
-#include "TaskContextServerCollection.hpp"
+#include "INameService.hpp"
 
 namespace RTT
 {namespace Communication
 {
     /**
-      * @brief This class is an abstract representation of a name service.
+      * @brief This class represents a factory, which has the means to create different kind of task context server.
       * 
       */
-    class INameService
+    class NameServiceFactory
     {
-    public:
-      // Ctor / Dtor
-      INameService() {};
-      virtual ~INameService() {};
+    private:
+	static boost::atomic<NameServiceFactory*> m_Instance;
+	static boost::mutex m_InstantiationMutex;
       
-      // General Name Service methods
-      virtual std::string getURI(std::string Name) = 0;
-      virtual bool RegisterTaskContextServer(std::string Name, TaskContextServerCollection& tcsCollection) = 0;
+	// Ctor / Dtor
+	NameServiceFactory();
+	~NameServiceFactory();
+	
+    public:
+	static NameServiceFactory* GetInstance()
+	{
+	  NameServiceFactory* tmp = m_Instance.load(boost::memory_order_consume);
+	  if (!tmp) 
+	  {
+	    boost::mutex::scoped_lock guard(m_InstantiationMutex);
+	    tmp = m_Instance.load(boost::memory_order_consume);
+	    if (!tmp) 
+	    {
+	      tmp = new NameServiceFactory();
+	      m_Instance.store(tmp, boost::memory_order_release);
+	    }
+	  }
+	  return tmp;
+	}
+	
+	NameServiceType createNameService(NameServiceImplementation eNameServiceImpl);
+	
     };
-    
-        // Type Definition of a smart pointer to a task context server
-    typedef boost::shared_ptr<INameService> NameServiceType;
 }
 }
 
-#endif // REMOTE_INAMINGSERVICE_HPP
+#endif // REMOTE_NAMESERVICEFACTORY_HPP
