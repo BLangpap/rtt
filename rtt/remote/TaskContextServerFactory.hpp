@@ -77,7 +77,7 @@ namespace RTT
 	  return tmp;
 	}
 	
-	TaskContextServerType createTaskContextServer(TaskContextServerImplementation eTaskContextServerImpl);
+	ITaskContextServer::shared_ptr createTaskContextServer(TaskContextServerImplementation eTaskContextServerImpl, TaskContext* pTaskContext);
 	
     };
 }

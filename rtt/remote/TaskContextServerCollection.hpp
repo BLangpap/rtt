@@ -45,13 +45,13 @@ namespace RTT
 {namespace Communication
 {
     /**
-      * @brief This class realizes the ability to build a collection of different task context server.
+      * @brief This class realizes the functionality of building a collection of different task context server.
       * 
       */
     class TaskContextServerCollection
     {
     private:
-      typedef std::vector<TaskContextServerType> TaskContextServerCollectionType;
+      typedef std::vector<ITaskContextServer::shared_ptr> TaskContextServerCollectionType; ///< Type defintion for a collection of task context server
       TaskContextServerCollectionType m_TaskContextServerCollection;
       
       
@@ -65,7 +65,7 @@ namespace RTT
       ~TaskContextServerCollection(); 
       
       // Methods for handling the name service collection
-      void add(TaskContextServerType& pTaskContextServer);
+      void add(ITaskContextServer::shared_ptr& pTaskContextServer);
       TaskContextServerIterator begin();
       TaskContextServerIterator end();
       TaskContextServerCollectionSizeType getSize();

@@ -52,6 +52,9 @@ namespace RTT
     class INameService
     {
     public:
+      // Type Definition of a smart pointer to a name service
+      typedef boost::shared_ptr<INameService> shared_ptr;
+      
       // Ctor / Dtor
       INameService() {};
       virtual ~INameService() {};
@@ -59,10 +62,9 @@ namespace RTT
       // General Name Service methods
       virtual std::string getURI(std::string Name) = 0;
       virtual bool RegisterTaskContextServer(std::string Name, TaskContextServerCollection& tcsCollection) = 0;
-    };
+
     
-        // Type Definition of a smart pointer to a task context server
-    typedef boost::shared_ptr<INameService> NameServiceType;
+    };    
 }
 }
 

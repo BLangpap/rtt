@@ -77,7 +77,7 @@ namespace RTT
 	  return tmp;
 	}
 	
-	NameServiceType createNameService(NameServiceImplementation eNameServiceImpl);
+	INameService::shared_ptr createNameService(NameServiceImplementation eNameServiceImpl);
 	
     };
 }

@@ -24,9 +24,9 @@ NameServiceFactory::~NameServiceFactory() {}
  * @param eNameServiceImpl The desired implementation option.
  * @return RTT::Communication::NameServiceType
  */
-NameServiceType NameServiceFactory::createNameService(NameServiceImplementation eNameServiceImpl)
+INameService::shared_ptr NameServiceFactory::createNameService(NameServiceImplementation eNameServiceImpl)
 {
-  NameServiceType pNameService;
+  INameService::shared_ptr pNameService;
 
   // Return a name service object depending on name service implementation type
   switch (eNameServiceImpl)

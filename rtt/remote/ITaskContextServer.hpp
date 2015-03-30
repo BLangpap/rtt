@@ -50,22 +50,20 @@ namespace RTT
     class ITaskContextServer
     {
     public:
+       // Type Definition of a smart pointer to a task context server
+      typedef boost::shared_ptr<ITaskContextServer> shared_ptr;
+      
       // Ctor / Dtor
-      ITaskContextServer() {};
-      virtual ~ITaskContextServer() {};
-      //ITaskContextServer(const ITaskContextServer&) = delete; // Needs to be checked, whether C++11 is supported or not!!!
-      //ITaskContextServer& operator=(const ITaskContextServer&) = delete;
+      ITaskContextServer() {}
+      virtual ~ITaskContextServer() {}
 
-      // General Name Service methods
+      // General task context server methods
       virtual bool AttachTo(TaskContext* pTaskContext) = 0;
       virtual bool Start(bool StartThreaded = false) = 0;
       virtual bool Stop() = 0;
       virtual bool Delete(TaskContext* pTaskContext) = 0;
       virtual bool DeleteAll() = 0;
     };
-    
-    // Type Definition of a smart pointer to a task context server
-    typedef boost::shared_ptr<ITaskContextServer> TaskContextServerType;
 }
 }
 

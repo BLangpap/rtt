@@ -24,11 +24,11 @@ TaskContextServerFactory::~TaskContextServerFactory() {}
  * @param eTaskContextServerImpl The desired implementation option.
  * @return RTT::Communication::TaskContextServerType
  */
-TaskContextServerType TaskContextServerFactory::createTaskContextServer(TaskContextServerImplementation eTaskContextServerImpl)
+ITaskContextServer::shared_ptr TaskContextServerFactory::createTaskContextServer(TaskContextServerImplementation eTaskContextServerImpl, RTT::TaskContext* pTaskContext)
 {
-  TaskContextServerType pTaskContextServer;
+  ITaskContextServer::shared_ptr pTaskContextServer;
 
-  // Return a task context server object depending on the task context server implementation type
+  // Create a task context server object depending on the task context server implementation type
   switch (eTaskContextServerImpl)
   {
   case TCS_CORBA:
@@ -37,6 +37,9 @@ TaskContextServerType TaskContextServerFactory::createTaskContextServer(TaskCont
   default:
     pTaskContextServer.reset();
   }
+  
+  // Attach the task context to the server
+  pTaskContextServer->AttachTo(pTaskContext);
 
   return pTaskContextServer;
 }

@@ -22,7 +22,7 @@ TaskContextServerCollection::~TaskContextServerCollection() {}
  * @param NameService The task context server to add.
  * @return void
  */
-void RTT::Communication::TaskContextServerCollection::add(TaskContextServerType& pTaskContextServer)
+void RTT::Communication::TaskContextServerCollection::add(ITaskContextServer::shared_ptr& pTaskContextServer)
 {
   m_TaskContextServerCollection.push_back(pTaskContextServer);
 }
@@ -47,6 +47,11 @@ RTT::Communication::TaskContextServerCollection::TaskContextServerIterator TaskC
   return m_TaskContextServerCollection.end();
 }
 
+/**
+ * @brief Gets the size of the collection.
+ * 
+ * @return RTT::Communication::TaskContextServerCollection::TaskContextServerCollectionSizeType
+ */
 RTT::Communication::TaskContextServerCollection::TaskContextServerCollectionSizeType TaskContextServerCollection::getSize()
 {
   return m_TaskContextServerCollection.size();
