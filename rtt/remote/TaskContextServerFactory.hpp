@@ -37,11 +37,13 @@
 #ifndef REMOTE_TASKCONTEXTSERVERFACTORY_HPP
 #define REMOTE_TASKCONTEXTSERVERFACTORY_HPP
 
+#include <map>
 #include <boost/shared_ptr.hpp>
 #include <boost/atomic.hpp>
 #include <boost/thread/mutex.hpp>
 #include "RemoteDefinitions.h"
 #include "ITaskContextServer.hpp"
+#include "ITaskContextServerGenerator.hpp"
 
 namespace RTT
 {namespace Communication
@@ -55,12 +57,13 @@ namespace RTT
     private:
 	static boost::atomic<TaskContextServerFactory*> m_Instance;
 	static boost::mutex m_InstantiationMutex;
-      
+	std::map<std::string, ITaskContextServerGenerator::shared_ptr> m_RegisteredTCSGenerators;
+	
 	// Ctor / Dtor
 	TaskContextServerFactory();
 	~TaskContextServerFactory();
 	
-    public:
+    public:     
 	static TaskContextServerFactory* GetInstance()
 	{
 	  TaskContextServerFactory* tmp = m_Instance.load(boost::memory_order_consume);
@@ -77,7 +80,12 @@ namespace RTT
 	  return tmp;
 	}
 	
-	ITaskContextServer::shared_ptr createTaskContextServer(TaskContextServerImplementation eTaskContextServerImpl, TaskContext* pTaskContext);
+	// Registration Methods
+	bool RegisterTaskContextServerGenerator(std::string NameID, ITaskContextServerGenerator::shared_ptr pTCSGenerator);
+	bool DeleteTaskContextServerGenerator(std::string NameID);
+	
+	// Factory method
+	ITaskContextServer::shared_ptr createTaskContextServer(std::string NameID, TaskContext* pTaskContext);
 	
     };
 }

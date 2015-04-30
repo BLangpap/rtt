@@ -1,7 +1,7 @@
 /***************************************************************************
   tag: Bernd Langpap  Wed Jan 18 14:09:48 CET 2006  INamingService.hpp
 
-                        NameServiceFactoy.hpp -  description
+                        ISetupGenerator.hpp -  description
                            -------------------
     begin                : Mon March 17 2015
     copyright            : (C) 2015 Bernd Langpap
@@ -34,60 +34,28 @@
  *   Suite 330, Boston, MA  02111-1307  USA                                *
  *                                                                         *
  ***************************************************************************/
-#ifndef REMOTE_NAMESERVICEFACTORY_HPP
-#define REMOTE_NAMESERVICEFACTORY_HPP
-
-//#include <map>
-#include <boost/shared_ptr.hpp>
-#include <boost/atomic.hpp>
-#include <boost/thread/mutex.hpp>
-#include "RemoteDefinitions.h"
-#include "INameService.hpp"
-#include "INameServiceGenerator.hpp"
+#ifndef REMOTE_ISETUPGENERATORS_HPP
+#define REMOTE_ISETUPGENERATORS_HPP
 
 namespace RTT
 {namespace Communication
 {
     /**
-      * @brief This class represents a factory, which has the means to create different kind of task context server.
+      * @brief This class enforcing the plugins to provide the necessary methods
+      * for generating new taskcontextserver plugins
       * 
       */
-    class NameServiceFactory
+    class ISetupGenerator
     {
-    private:
-	static boost::atomic<NameServiceFactory*> m_Instance;
-	static boost::mutex m_InstantiationMutex;
-	std::map<std::string, INameServiceGenerator::shared_ptr> m_RegisteredNameServiceGenerators;
-	
-	// Ctor / Dtor
-	NameServiceFactory();
-	~NameServiceFactory();
-	
-    public:
-	static NameServiceFactory* GetInstance()
-	{
-	  NameServiceFactory* tmp = m_Instance.load(boost::memory_order_consume);
-	  if (!tmp) 
-	  {
-	    boost::mutex::scoped_lock guard(m_InstantiationMutex);
-	    tmp = m_Instance.load(boost::memory_order_consume);
-	    if (!tmp) 
-	    {
-	      tmp = new NameServiceFactory();
-	      m_Instance.store(tmp, boost::memory_order_release);
-	    }
-	  }
-	  return tmp;
-	}
-	
-	// Registration Methods
-	bool RegisterTaskContextServerGenerator(std::string NameID, INameServiceGenerator::shared_ptr pNameServiceGenerator);
-	bool DeleteTaskContextServerGenerator(std::string NameID);
-	
-	// Factory method
-	INameService::shared_ptr createNameService(std::string NameID);	
-    };
+    public:        
+      // Ctor / Dtor
+      ISetupGenerator() {};      
+      virtual ~ISetupGenerator() {};
+      
+      // Generating methods
+      virtual SetupGenerators() = 0;      
+    };    
 }
 }
 
-#endif // REMOTE_NAMESERVICEFACTORY_HPP
+#endif // REMOTE_ISETUPGENERATORS_HPP
