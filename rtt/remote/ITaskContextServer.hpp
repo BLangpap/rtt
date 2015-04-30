@@ -38,7 +38,7 @@
 #define REMOTE_ITASKCONTEXTSERVER_HPP
 
 #include <string>
-#include <TaskContext.hpp>
+#include <rtt/TaskContext.hpp>
 
 namespace RTT
 {namespace Communication

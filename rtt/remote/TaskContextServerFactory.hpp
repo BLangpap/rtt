@@ -41,7 +41,7 @@
 #include <boost/shared_ptr.hpp>
 #include <boost/atomic.hpp>
 #include <boost/thread/mutex.hpp>
-#include "RemoteDefinitions.h"
+// #include "RemoteDefinitions.h"
 #include "ITaskContextServer.hpp"
 #include "ITaskContextServerGenerator.hpp"
 

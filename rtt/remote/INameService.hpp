@@ -38,8 +38,8 @@
 #define REMOTE_INAMINGSERVICE_HPP
 
 #include <string>
-#include "RemoteDefinitions.h"
-#include <TaskContext.hpp>
+// #include "RemoteDefinitions.h"
+#include <rtt/TaskContext.hpp>
 #include "TaskContextServerCollection.hpp"
 
 namespace RTT
