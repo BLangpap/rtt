@@ -85,7 +85,7 @@ namespace RTT
 	bool DeleteTaskContextServerGenerator(std::string NameID);
 	
 	// Factory method
-	ITaskContextServer::shared_ptr createTaskContextServer(std::string NameID, TaskContext* pTaskContext);
+	ITaskContextServer::shared_ptr CreateTaskContextServer(std::string NameID, TaskContext* pTaskContext);
 	
     };
 }

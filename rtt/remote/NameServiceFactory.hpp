@@ -81,11 +81,11 @@ namespace RTT
 	}
 	
 	// Registration Methods
-	bool RegisterTaskContextServerGenerator(std::string NameID, INameServiceGenerator::shared_ptr pNameServiceGenerator);
-	bool DeleteTaskContextServerGenerator(std::string NameID);
+	bool RegisterNameServiceGenerator(std::string NameID, INameServiceGenerator::shared_ptr pNameServiceGenerator);
+	bool DeleteNameServiceGenerator(std::string NameID);
 	
 	// Factory method
-	INameService::shared_ptr createNameService(std::string NameID);	
+	INameService::shared_ptr CreateNameService(std::string NameID);	
     };
 }
 }

@@ -38,7 +38,6 @@
 #define REMOTE_INAMINGSERVICE_HPP
 
 #include <string>
-// #include "RemoteDefinitions.h"
 #include <rtt/TaskContext.hpp>
 #include "TaskContextServerCollection.hpp"
 
@@ -61,9 +60,7 @@ namespace RTT
       
       // General Name Service methods
       virtual std::string getURI(std::string Name) = 0;
-      virtual bool RegisterTaskContextServer(std::string Name, TaskContextServerCollection& tcsCollection) = 0;
-
-    
+      virtual bool RegisterTaskContextServer(std::string Name, TaskContextServerCollection& tcsCollection) = 0;   
     };    
 }
 }

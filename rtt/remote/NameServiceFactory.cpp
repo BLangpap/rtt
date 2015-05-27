@@ -21,13 +21,13 @@ NameServiceFactory::~NameServiceFactory() {}
 // Registration methods implementation
 /**
  * @brief This methods adds a nameservice generator to the list of known generators. If
- * a generator is already listed, the new one will be regarded and needs to be deleted first.
+ * a generator is already listed, the new one will be disregarded and needs to be deleted first.
  * 
  * @param NameID The name with which the generator shall be listed
  * @param pTCSGenerator A pointer to the generator
  * @return bool The result of the add-operation
  */
-bool NameServiceFactory::RegisterTaskContextServerGenerator(std::string NameID, INameServiceGenerator::shared_ptr pNameServiceGenerator)
+bool NameServiceFactory::RegisterNameServiceGenerator(std::string NameID, INameServiceGenerator::shared_ptr pNameServiceGenerator)
 {
   bool IsRegistered = false;
   
@@ -54,7 +54,7 @@ bool NameServiceFactory::RegisterTaskContextServerGenerator(std::string NameID, 
  * @param NameID The name with which the generator is registerd
  * @return bool The result of the delete operation
  */
-bool NameServiceFactory::DeleteTaskContextServerGenerator(std::string NameID)
+bool NameServiceFactory::DeleteNameServiceGenerator(std::string NameID)
 {
   bool IsDeleted = false;
   
@@ -81,7 +81,7 @@ bool NameServiceFactory::DeleteTaskContextServerGenerator(std::string NameID)
  * @param NameID The string/name identifier for the implementation option.
  * @return RTT::Communication::ITaskContextServer::shared_ptr
  */
-INameService::shared_ptr NameServiceFactory::createNameService(std::string NameID)
+INameService::shared_ptr NameServiceFactory::CreateNameService(std::string NameID)
 {
   INameService::shared_ptr pNameService;
 

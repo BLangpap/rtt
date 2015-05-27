@@ -25,7 +25,7 @@ TaskContextServerFactory::~TaskContextServerFactory() {}
 
 /**
  * @brief This methods adds a taskcontext server generator to the list of known generators. If
- * a generator is already listed, the new one will be regarded and needs to be deleted first.
+ * a generator is already listed, the new one will be disregarded and needs to be deleted first.
  * 
  * @param NameID The name with which the generator shall be listed
  * @param pTCSGenerator A pointer to the generator
@@ -35,7 +35,7 @@ bool TaskContextServerFactory::RegisterTaskContextServerGenerator(std::string Na
 {
   bool IsRegistered = false;
   
-  // Check whether the passed TCS generator is already listed
+  // Check whether the passed TCS generator is not listed yet
   if (m_RegisteredTCSGenerators.find(NameID) == m_RegisteredTCSGenerators.end())
   {
     // Ensure exclusive write access
@@ -87,7 +87,7 @@ bool TaskContextServerFactory::DeleteTaskContextServerGenerator(std::string Name
  * @param pTaskContext the task context the taskcontext server shall be attached to.
  * @return RTT::Communication::ITaskContextServer::shared_ptr
  */
-ITaskContextServer::shared_ptr TaskContextServerFactory::createTaskContextServer(std::string NameID, TaskContext* pTaskContext)
+ITaskContextServer::shared_ptr TaskContextServerFactory::CreateTaskContextServer(std::string NameID, TaskContext* pTaskContext)
 {
   ITaskContextServer::shared_ptr pTaskContextServer;
 
